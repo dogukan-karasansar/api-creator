@@ -18,7 +18,7 @@ class ProductController extends Controller
         $str = $request->category_name;
         $products = Product::with("category");
         if($str) {
-            $category = Category::where("category_name", "=", $request->category_name)->get();
+            $category = Category::where("category_name", "=", $str)->get();
             $products->where("category_id", "=", $category[0]->id);
         }
 
