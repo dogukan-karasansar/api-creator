@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -12,11 +13,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        $str = $request->category_name;
+        $products = Product::with("category");
+        if($str) {
+            $category = Category::where("category_name", "=", $request->category_name)->get();
+            $products->where("category_id", "=", $category[0]->id);
+        }
 
-        return response()->json($products);
+        return $products->get();
     }
 
     /**
