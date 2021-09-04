@@ -30,13 +30,15 @@ class AuthController extends Controller
             'password' => 'required|string|confirmed',
         ]);
 
-        User::create([
+       $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
 
-        return response()->json(['message' => $this->SUCCCESS_MESSAGE], $this->CREATED_STATUS);
+        $token = $user->createToken('authToken')->accessToken;
+
+        return response()->json(['message' => $this->SUCCCESS_MESSAGE, 'access_token' => $token], $this->CREATED_STATUS);
 
 
     }
