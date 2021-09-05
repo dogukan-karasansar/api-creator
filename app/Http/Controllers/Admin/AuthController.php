@@ -17,7 +17,7 @@ class AuthController extends Controller
 
         $credentials = request(['email', 'password']);
         if(Auth::attempt($credentials) && Auth::user()->role === "admin") {
-            return view("admin.dashboard");
+            return redirect("admin");
         } else {
             return back()->with("errors", "Hatalı Giriş");
         }

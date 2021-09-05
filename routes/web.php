@@ -22,9 +22,10 @@ Route::get('/', function () {
 Route::post('/', [AuthController::class, "login"])->name("auth.login");
 
 
-Route::middleware(['middleware' => ['admin']])->group(function () {
+
+Route::group(["prefix" => 'admin', 'middleware' => ['admin']], function () {
     //ADMİN
-    Route::get('admin-dashboard', [AdminController::class, 'index']);
+    Route::get('/', [AdminController::class, 'index']);
 });
 
 
