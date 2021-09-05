@@ -39,7 +39,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('authToken')->accessToken;
 
-        return response()->json(['message' => $this->SUCCCESS_MESSAGE, 'access_token' => $token], $this->CREATED_STATUS);
+        return response()->json(['message' => $this->SUCCCESS_MESSAGE, 'access_token' => $token, 'user' => $user], $this->CREATED_STATUS);
 
 
     }
@@ -59,7 +59,7 @@ class AuthController extends Controller
             $message['experies_at'] = Carbon::parse(Carbon::now()->addWeek(1))->toDateTimeString();
             $message['success'] = 'Kullanıcı Girişi Başarılı';
 
-            return response()->json(['message' => $message, 'access_token' => $token], $this->SUCCCESS_STATUS);
+            return response()->json(['message' => $message, 'access_token' => $token, 'user' => auth()->user()], $this->SUCCCESS_STATUS);
         } else {
             return response(['error' => $this->UNAUTHORISED_MESSAGE], $this->UNAUTHORISED_STATUS);
         }
