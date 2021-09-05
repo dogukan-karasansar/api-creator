@@ -22,11 +22,17 @@ Route::get('/', function () {
 Route::post('/', [AuthController::class, "login"])->name("auth.login");
 
 
+Route::prefix('admin')->group(function () {
+    Route::middleware(['admin'])->group(function () {
+        //ADMİN
+        Route::get('/', [AdminController::class, 'index']);
+    });
+});
 
-Route::group(["prefix" => 'admin', 'middleware' => ['admin']], function () {
+/* Route::group(["prefix" => 'admin', 'middleware' => ['admin']], function () {
     //ADMİN
     Route::get('/', [AdminController::class, 'index']);
 });
-
+ */
 
 
