@@ -19,6 +19,7 @@ Route::prefix('v1')->group(function () {
         //USERS API
         Route::get('users', [UserController::class, 'getUsers']);
         Route::get('user/{id}', [UserController::class, 'getUser']);
+        Route::get('me', [UserController::class, 'getMe']);
     });
         //PRODUCTS API
         Route::resource('products', ProductController::class);
